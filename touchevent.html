@@ -20,12 +20,38 @@
 	<div class="touchzone">It works!</div>	
 </body>
 <script>
+	
+	var now = new Date().getTime();
+
+	$('.touchzone').on('touchstart', function(){
+		console.log('native touchstart');
+		logTime();
+	});
+	$('.touchzone').on('touchend', function(e){
+		console.log('native touchend');
+		logTime();
+		e.preventDefault();		// no click will be triggered...
+	});
+	$('.touchzone').on('touchmove', function(){
+		console.log('native touchmove');
+		logTime();
+	});
+
+
 	$('.touchzone').on('tap', function(){
 		console.log('zepto tap');
+		logTime();
 
 	}).on('click', function(){
 		console.log('click');
+		logTime();
 	})
+
+	function logTime(){
+		var temp = now
+		now = new Date().getTime();
+		console.log(now - temp);
+	}
 	
 
 </script>
