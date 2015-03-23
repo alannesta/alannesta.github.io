@@ -8,15 +8,24 @@
 <script src="script/zepto.touch.js"></script>
 <link rel="stylesheet" href="styles/bootstrap.css">
 <style>
-
+.touchzone{
+	width: 200px;
+	height: 100px;
+	background-color: red;
+}
 
 </style>
 </head>
 <body>
-	<div>It works!</div>	
+	<div class="touchzone">It works!</div>	
 </body>
 <script>
-	
+	$('.touchzone').on('tap', function(){
+		console.log('zepto tap');
+
+	}).on('click', function(){
+		console.log('click');
+	})
 	
 
 </script>
