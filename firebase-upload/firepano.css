@@ -1,0 +1,15 @@
+body {
+  /*background-color: #222;*/
+  color: #eee;
+  font-family: sans-serif;
+}
+
+
+.pano {
+  height: 85%;
+  max-height: 85%;
+}
+
+#spin {
+  height: 60px;
+}
