@@ -1,6 +1,7 @@
 //var firebaseRef = 'https://firepano.firebaseio.com/';
 var firebaseRef = 'https://radiant-fire-6566.firebaseio.com';
-var counter = 1;
+var counter;
+
 
 var f = new Firebase(firebaseRef);
 
@@ -24,10 +25,21 @@ function handleFileSelect(evt) {
 function init() {
     // A hash was passed in, so let's retrieve and render it.
     document.getElementById("inputupload").addEventListener('change', handleFileSelect, false);
+    var listButton = document.getElementById('list-file');
+
+    // listButton.addEventListener('click', function(){
+    f.orderByKey().limitToLast(1).once("child_added", function(snapshot) {
+        console.log('child added?');
+        var length = snapshot.key().length;
+        counter = parseInt(snapshot.key().substring(5, length));
+        console.log(counter);
+    });
+    // })
 
     f.on('child_added', function(snap) {
+        console.log('after upload');
         var payload = snap.val();
-        console.log(payload);
+        // console.log(payload);
         if (payload != null) {
             document.getElementById("pano").src = payload;
         } else {
@@ -35,5 +47,10 @@ function init() {
         }
     });
 }
+
+function listFile() {
+
+}
+
 
 init();
