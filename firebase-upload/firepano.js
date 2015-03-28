@@ -1,6 +1,6 @@
 //var firebaseRef = 'https://firepano.firebaseio.com/';
 var firebaseRef = 'https://radiant-fire-6566.firebaseio.com';
-var counter;
+var counter = 1;
 
 
 var f = new Firebase(firebaseRef);
@@ -15,7 +15,7 @@ function handleFileSelect(evt) {
             var key = 'image' + counter++;
             // Set the file payload to Firebase and register an onComplete handler to stop the spinner and show the preview
             f.child(key).set(filePayload, function() {
-                console.log('upload success');
+                console.log('real upload success');     // this might happen after the 'child_added' event
             });
         };
     })();
@@ -27,17 +27,18 @@ function init() {
     document.getElementById("inputupload").addEventListener('change', handleFileSelect, false);
     var listButton = document.getElementById('list-file');
 
-    // listButton.addEventListener('click', function(){
+    // get the current index.
     f.orderByKey().limitToLast(1).once("child_added", function(snapshot) {
-        console.log('child added?');
+        console.log('child added once, get counter');
         var length = snapshot.key().length;
-        counter = parseInt(snapshot.key().substring(5, length));
+        var index = parseInt(snapshot.key().substring(5, length));
+        counter = isNaN(index)? counter + 1: index + 1;
         console.log(counter);
     });
-    // })
-
+    
+    // this can be triggered before the "network" upload has actually been done
     f.on('child_added', function(snap) {
-        console.log('after upload');
+        console.log('after upload');    
         var payload = snap.val();
         // console.log(payload);
         if (payload != null) {
