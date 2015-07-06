@@ -11,10 +11,9 @@
 <script>
     $('#csrf').on('click', function() {
         $.ajax({
-            url:'https://bouvmappfork30.acquisio.com/new/api/workbench/29350/86244/campaigns/changes/682664',
-            data: JSON.stringify({"filters":[],"quickFilter":null,"channelFilter":null}),
-            contentType: 'application/json',
-            method: 'DELETE',
+            url:'https://bouvmappfork29.acquisio.com/new/api/users/current',
+//            data: JSON.stringify({"filters":[],"quickFilter":null,"channelFilter":null}),
+            method: 'GET',
             success: function() {
                 console.log('success');
             }
