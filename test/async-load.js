@@ -1,8 +1,13 @@
 console.log('this file is loaded asynchronoulsy');
 var k = 0;
-for (var i = 0; i < 5000; i++) {
-    for (var j = 0; j < 2000; j++) {
+for (var i = 0; i < 10000; i++) {
+    for (var j = 0; j < 10000; j++) {
         k++;
     }
 }
-window.alan = 1;
+
+setGlobal();
+
+function setGlobal() {
+    window.alan = 1;
+}
